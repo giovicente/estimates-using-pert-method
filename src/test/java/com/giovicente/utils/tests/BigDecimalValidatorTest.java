@@ -9,26 +9,26 @@ import java.math.BigDecimal;
 public class BigDecimalValidatorTest {
 
     @Test
-    public void shouldReturnTrueToValidBigDecimal() {
+    void shouldReturnTrueToValidBigDecimal() {
         Assertions.assertTrue(BigDecimalValidator.isPositiveNumeric(new BigDecimal("1.8")));
     }
 
     @Test
-    public void shouldThrowNumberFormatExceptionToInvalidBigDecimal() {
+    void shouldThrowNumberFormatExceptionToInvalidBigDecimal() {
         Assertions.assertThrows(NumberFormatException.class, () -> {
             BigDecimalValidator.isPositiveNumeric(new BigDecimal("e"));
         });
     }
 
     @Test
-    public void shouldThrowNumberFormatExceptionToNegativeBigDecimal() {
+    void shouldThrowNumberFormatExceptionToNegativeBigDecimal() {
         Assertions.assertThrows(NumberFormatException.class, () -> {
             BigDecimalValidator.isPositiveNumeric(new BigDecimal("-1"));
         });
     }
 
     @Test
-    public void shouldReturnTrueToZeroBigDecimal() {
+    void shouldReturnTrueToZeroBigDecimal() {
         Assertions.assertTrue(BigDecimalValidator.isPositiveNumeric(BigDecimal.ZERO));
     }
 }

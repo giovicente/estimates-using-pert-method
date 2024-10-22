@@ -19,7 +19,7 @@ public class PERTCalculatorTest {
     private static List<BigDecimal> deviations;
 
     @BeforeAll
-    public static void setUp() {
+    static void setUp() {
         optimistic = BigDecimal.ONE;
         realistic  = new BigDecimal("3");
         pessimistic = new BigDecimal("12");
@@ -37,7 +37,7 @@ public class PERTCalculatorTest {
     }
 
     @Test
-    public void shouldEstimateCorrectDuration() {
+    void shouldEstimateCorrectDuration() {
         BigDecimal expectedDuration = new BigDecimal("4.2");
         BigDecimal actualDuration = new BigDecimal(
                 String.valueOf(PERTCalculator.calculateDuration(optimistic, realistic, pessimistic))
@@ -47,7 +47,7 @@ public class PERTCalculatorTest {
     }
 
     @Test
-    public void shouldReturnCorrectStandardDeviation() {
+    void shouldReturnCorrectStandardDeviation() {
         BigDecimal expectedStandardDeviation = new BigDecimal("1.8");
         BigDecimal actualStandardDeviation = new BigDecimal(
                 String.valueOf(PERTCalculator.calculateStandardDeviation(pessimistic, optimistic))
@@ -57,7 +57,7 @@ public class PERTCalculatorTest {
     }
 
     @Test
-    public void shouldReturnCorrectSumOfDurations() {
+    void shouldReturnCorrectSumOfDurations() {
         BigDecimal expectedSumOfDurations = new BigDecimal("14.2");
         BigDecimal actualSumOfDurations = new BigDecimal(
                 String.valueOf(PERTCalculator.calculateProbabilityDistributionDurations(durations))
@@ -67,7 +67,7 @@ public class PERTCalculatorTest {
     }
 
     @Test
-    public void shouldReturnCorrectDeviations() {
+    void shouldReturnCorrectDeviations() {
         BigDecimal expectedSumOfDeviations = new BigDecimal("3.1");
         BigDecimal actualSumOfDeviations = new BigDecimal(
                 String.valueOf(PERTCalculator.calculateProbabilityDistributionStandardDeviations(deviations))
