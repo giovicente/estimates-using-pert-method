@@ -32,6 +32,8 @@ public class PERTMenu {
 
                 Printer.printOptionMessage();
                 option = PERTScanner.nextInt();
+
+                Printer.printAsterisks();
             }
 
             if (option == INDIVIDUAL_ESTIMATE) {
@@ -52,6 +54,8 @@ public class PERTMenu {
 
                 Printer.printContinuityMessage();
                 continuity = Character.toUpperCase(PERTScanner.next().charAt(0));
+
+                Printer.printAsterisks();
             }
 
             isRunning = (continuity == 'Y');

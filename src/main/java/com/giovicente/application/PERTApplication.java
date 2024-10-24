@@ -2,6 +2,7 @@ package com.giovicente.application;
 
 import com.giovicente.pert.PERTCalculator;
 import com.giovicente.pert.PERTMenu;
+import com.giovicente.utils.Printer;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -37,8 +38,10 @@ public class PERTApplication {
                 "Σμ = " + new BigDecimal(String.valueOf(PERTCalculator.calculateProbabilityDistributionDurations(new ArrayList<>()))) + " "
         );
 
-        System.out.print(
+        System.out.println(
                 "√Σ(σ²) = " + new BigDecimal(String.valueOf(PERTCalculator.calculateProbabilityDistributionStandardDeviations(deviations)))
         );
+
+        Printer.printAsterisks();
     }
 }
