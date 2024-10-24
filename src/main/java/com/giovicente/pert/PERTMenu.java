@@ -1,10 +1,8 @@
 package com.giovicente.pert;
 
-import com.giovicente.utils.BigDecimalValidator;
 import com.giovicente.utils.Printer;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.Scanner;
 
 public class PERTMenu {

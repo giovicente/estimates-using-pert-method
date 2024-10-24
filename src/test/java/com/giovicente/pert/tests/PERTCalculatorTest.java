@@ -1,10 +1,9 @@
 package com.giovicente.pert.tests;
 
-import com.giovicente.utils.BigDecimalValidator;
+import com.giovicente.pert.PERTCalculator;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import com.giovicente.pert.PERTCalculator;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
