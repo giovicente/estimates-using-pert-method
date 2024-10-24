@@ -10,15 +10,15 @@ import java.util.List;
 
 public class PERTCalculator {
 
-    public static BigDecimal calculateDuration(BigDecimal optimistic, BigDecimal realistic, BigDecimal pessimistic) {
+    public static BigDecimal calculateDuration(BigDecimal optimistic, BigDecimal nominal, BigDecimal pessimistic) {
         BigDecimal weightedEstimate = new BigDecimal("0");
 
         if (BigDecimalValidator.isPositiveNumeric(optimistic) &&
-                BigDecimalValidator.isPositiveNumeric(realistic) &&
+                BigDecimalValidator.isPositiveNumeric(nominal) &&
                 BigDecimalValidator.isPositiveNumeric(pessimistic)) {
 
-            BigDecimal weightedRealisticEstimate = realistic.multiply(new BigDecimal("4"));
-            weightedEstimate = optimistic.add(weightedRealisticEstimate).add(pessimistic);
+            BigDecimal weightedNominalEstimate = nominal.multiply(new BigDecimal("4"));
+            weightedEstimate = optimistic.add(weightedNominalEstimate).add(pessimistic);
         }
 
         return weightedEstimate.divide(new BigDecimal("6"), 1, RoundingMode.HALF_UP);

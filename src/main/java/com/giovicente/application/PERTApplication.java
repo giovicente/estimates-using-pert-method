@@ -1,17 +1,20 @@
-package org.example;
+package com.giovicente.application;
 
 import com.giovicente.pert.PERTCalculator;
+import com.giovicente.pert.PERTMenu;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class Main {
+public class PERTApplication {
     public static void main(String[] args) {
+        PERTMenu.runPERT();
+
         BigDecimal optimistic = new BigDecimal("1");
-        BigDecimal realistic = new BigDecimal("3");
-        BigDecimal pessimistic = new BigDecimal("12");
+        BigDecimal realistic = new BigDecimal("1.5");
+        BigDecimal pessimistic = new BigDecimal("14");
 
         List<BigDecimal> deviations;
 

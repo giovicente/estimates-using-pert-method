@@ -13,7 +13,7 @@ import java.util.List;
 public class PERTCalculatorTest {
 
     private static BigDecimal optimistic;
-    private static BigDecimal realistic;
+    private static BigDecimal nominal;
     private static BigDecimal pessimistic;
     private static List<BigDecimal> durations;
     private static List<BigDecimal> deviations;
@@ -21,7 +21,7 @@ public class PERTCalculatorTest {
     @BeforeAll
     static void setUp() {
         optimistic = BigDecimal.ONE;
-        realistic  = new BigDecimal("3");
+        nominal  = new BigDecimal("3");
         pessimistic = new BigDecimal("12");
 
         BigDecimal durationProjectOne = new BigDecimal("4.2");
@@ -40,7 +40,7 @@ public class PERTCalculatorTest {
     void shouldEstimateCorrectDuration() {
         BigDecimal expectedDuration = new BigDecimal("4.2");
         BigDecimal actualDuration = new BigDecimal(
-                String.valueOf(PERTCalculator.calculateDuration(optimistic, realistic, pessimistic))
+                String.valueOf(PERTCalculator.calculateDuration(optimistic, nominal, pessimistic))
         );
 
         Assertions.assertEquals(expectedDuration, actualDuration);
