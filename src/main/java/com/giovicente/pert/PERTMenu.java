@@ -36,7 +36,6 @@ public class PERTMenu {
 
                 Printer.printOptionMessage();
                 option = PERTScanner.nextInt();
-
                 Printer.printAsterisks();
             }
 
@@ -52,7 +51,6 @@ public class PERTMenu {
                 boolean hasMoreEstimates;
                 List<BigDecimal> durations = new ArrayList<>();
                 List<BigDecimal> deviations = new ArrayList<>();
-                BigDecimal duration;
 
                 do {
                     optimistic = getOptimistic(PERTScanner);
@@ -60,7 +58,7 @@ public class PERTMenu {
                     pessimistic = getPessimistic(PERTScanner);
                     Printer.printAsterisks();
 
-                    duration = getDuration(optimistic, nominal, pessimistic);
+                    BigDecimal duration = getDuration(optimistic, nominal, pessimistic);
 
                     durations.add(duration);
                     deviations.add(getIndividualStandardDeviation(optimistic, pessimistic));
@@ -68,7 +66,6 @@ public class PERTMenu {
 
                     char continuity = hasContinuity(PERTScanner);
                     hasMoreEstimates = (continuity == 'Y');
-
                 } while (hasMoreEstimates);
 
                 BigDecimal weightedDuration = new BigDecimal(
@@ -103,9 +100,9 @@ public class PERTMenu {
 
             Printer.printContinuityMessage();
             continuity = Character.toUpperCase(PERTScanner.next().charAt(0));
-
             Printer.printAsterisks();
         }
+
         return continuity;
     }
 }
