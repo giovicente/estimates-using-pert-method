@@ -1,9 +1,14 @@
 package com.giovicente.pert;
 
 import com.giovicente.utils.Printer;
+import org.jetbrains.annotations.NotNull;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
+
+import static com.giovicente.pert.PERTEstimateRetriever.*;
 
 public class PERTMenu {
 
@@ -16,6 +21,8 @@ public class PERTMenu {
 
         final int INDIVIDUAL_ESTIMATE = 1;
         final int BATCH_ESTIMATE = 2;
+
+        BigDecimal optimistic, nominal, pessimistic, realistic;
 
         boolean isRunning = false;
 
@@ -35,27 +42,50 @@ public class PERTMenu {
             }
 
             if (option == INDIVIDUAL_ESTIMATE) {
-                calculateIndividualEstimate(PERTScanner);
+                optimistic = getOptimistic(PERTScanner);
+                nominal = getNominal(PERTScanner);
+                pessimistic = getPessimistic(PERTScanner);
 
+                realistic = getIndividualEstimate(optimistic, nominal, pessimistic);
+                Printer.printRealisticEstimate(realistic);
+                Printer.printAsterisks();
             } else {
-                System.out.println("Batch Estimates coming soon. . .");
+                boolean hasMoreEstimates;
+                List<BigDecimal> durations = new ArrayList<>();
+                List<BigDecimal> deviations = new ArrayList<>();
+                BigDecimal duration;
+
+                do {
+                    optimistic = getOptimistic(PERTScanner);
+                    nominal = getNominal(PERTScanner);
+                    pessimistic = getPessimistic(PERTScanner);
+                    Printer.printAsterisks();
+
+                    duration = getDuration(optimistic, nominal, pessimistic);
+
+                    durations.add(duration);
+                    deviations.add(getIndividualStandardDeviation(optimistic, pessimistic));
+                    Printer.printAsterisks();
+
+                    char continuity = hasContinuity(PERTScanner);
+                    hasMoreEstimates = (continuity == 'Y');
+
+                } while (hasMoreEstimates);
+
+                BigDecimal weightedDuration = new BigDecimal(
+                        String.valueOf(PERTCalculator.calculateProbabilityDistributionDurations(durations))
+                );
+
+                BigDecimal weightedDeviation = new BigDecimal(
+                        String.valueOf(PERTCalculator.calculateProbabilityDistributionStandardDeviations(deviations))
+                );
+
+                Printer.printTaskSequenceDuration(weightedDuration);
+                Printer.printTaskSequenceStandardDeviation(weightedDeviation);
                 Printer.printAsterisks();
             }
 
-            Printer.printContinuityMessage();
-            char continuity = Character.toUpperCase(PERTScanner.next().charAt(0));
-            Printer.printAsterisks();
-
-            while (continuity != 'Y' && continuity != 'N') {
-                Printer.printInvalidContinuityMessage();
-                Printer.printAsterisks();
-
-                Printer.printContinuityMessage();
-                continuity = Character.toUpperCase(PERTScanner.next().charAt(0));
-
-                Printer.printAsterisks();
-            }
-
+            char continuity = hasContinuity(PERTScanner);
             isRunning = (continuity == 'Y');
 
         } while (isRunning);
@@ -63,30 +93,30 @@ public class PERTMenu {
         PERTScanner.close();
     }
 
-    private static void calculateIndividualEstimate(Scanner PERTScanner) {
-        Printer.printInsertOptimisticEstimate();
-        BigDecimal optimistic = new BigDecimal(String.valueOf(PERTScanner.nextBigDecimal()));
-
-        Printer.printInsertNominalEstimate();
-        BigDecimal nominal = new BigDecimal(String.valueOf(PERTScanner.nextBigDecimal()));
-
-        Printer.printInsertPessimisticEstimate();
-        BigDecimal pessimistic = new BigDecimal(String.valueOf(PERTScanner.nextBigDecimal()));
-
+    private static char hasContinuity(Scanner PERTScanner) {
+        Printer.printContinuityMessage();
+        char continuity = Character.toUpperCase(PERTScanner.next().charAt(0));
         Printer.printAsterisks();
 
-        BigDecimal duration;
-        Printer.printDuration(duration = new BigDecimal(
-                String.valueOf(PERTCalculator.calculateDuration(optimistic, nominal, pessimistic)))
-        );
+        while (continuity != 'Y' && continuity != 'N') {
+            Printer.printInvalidContinuityMessage();
+            Printer.printAsterisks();
 
-        BigDecimal standardDeviation;
-        Printer.printStandardDeviation(standardDeviation = new BigDecimal(
-                String.valueOf(PERTCalculator.calculateStandardDeviation(pessimistic, optimistic))
-        ));
+            Printer.printContinuityMessage();
+            continuity = Character.toUpperCase(PERTScanner.next().charAt(0));
 
-        Printer.printRealisticEstimate(duration.add(standardDeviation));
+            Printer.printAsterisks();
+        }
+        return continuity;
+    }
 
+    @NotNull
+    private static BigDecimal getIndividualEstimate(BigDecimal optimistic, BigDecimal nominal, BigDecimal pessimistic) {
         Printer.printAsterisks();
+
+        BigDecimal duration = getDuration(optimistic, nominal, pessimistic);
+        BigDecimal standardDeviation = getIndividualStandardDeviation(optimistic, pessimistic);
+
+        return duration.add(standardDeviation);
     }
 }

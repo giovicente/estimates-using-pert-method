@@ -54,6 +54,14 @@ public class Printer {
         System.out.println("Invalid Option! It must be Y or N!!!");
     }
 
+    public static void printTaskSequenceDuration(BigDecimal weightedDuration) {
+        System.out.println("Task Sequence Duration: " + weightedDuration);
+    }
+
+    public static void printTaskSequenceStandardDeviation(BigDecimal weightedStandardDeviation) {
+        System.out.println("Task Sequence Standard Deviation: " + weightedStandardDeviation);
+    }
+
     public static void jumpLine() {
         System.out.println();
     }
