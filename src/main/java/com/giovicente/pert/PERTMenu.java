@@ -83,7 +83,6 @@ public class PERTMenu {
 
             char continuity = hasContinuity(PERTScanner);
             isRunning = (continuity == 'Y');
-
         } while (isRunning);
 
         PERTScanner.close();
