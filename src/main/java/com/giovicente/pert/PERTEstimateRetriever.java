@@ -43,4 +43,14 @@ public class PERTEstimateRetriever {
         ));
         return standardDeviation;
     }
+
+    @NotNull
+    static BigDecimal getIndividualEstimate(BigDecimal optimistic, BigDecimal nominal, BigDecimal pessimistic) {
+        Printer.printAsterisks();
+
+        BigDecimal duration = getDuration(optimistic, nominal, pessimistic);
+        BigDecimal standardDeviation = getIndividualStandardDeviation(optimistic, pessimistic);
+
+        return duration.add(standardDeviation);
+    }
 }

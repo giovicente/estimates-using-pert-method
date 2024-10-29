@@ -1,7 +1,6 @@
 package com.giovicente.pert;
 
 import com.giovicente.utils.Printer;
-import org.jetbrains.annotations.NotNull;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -108,15 +107,5 @@ public class PERTMenu {
             Printer.printAsterisks();
         }
         return continuity;
-    }
-
-    @NotNull
-    private static BigDecimal getIndividualEstimate(BigDecimal optimistic, BigDecimal nominal, BigDecimal pessimistic) {
-        Printer.printAsterisks();
-
-        BigDecimal duration = getDuration(optimistic, nominal, pessimistic);
-        BigDecimal standardDeviation = getIndividualStandardDeviation(optimistic, pessimistic);
-
-        return duration.add(standardDeviation);
     }
 }
