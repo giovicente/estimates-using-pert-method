@@ -62,6 +62,14 @@ public class Printer {
         System.out.println("Task Sequence Standard Deviation: " + weightedStandardDeviation);
     }
 
+    public static void printFinalBatchEstimate(BigDecimal weightedEstimate) {
+        System.out.println("Final Estimate: " + weightedEstimate);
+    }
+
+    public static void printFinalBatchEstimateWorstCase(BigDecimal weightedEstimate) {
+        System.out.println("Final Estimate (Worst Case Scenario): " + weightedEstimate);
+    }
+
     public static void jumpLine() {
         System.out.println();
     }
