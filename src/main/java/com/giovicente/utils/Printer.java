@@ -4,6 +4,10 @@ import java.math.BigDecimal;
 
 public class Printer {
 
+    private Printer() {
+        throw new IllegalStateException("This class can't be instantiated");
+    }
+
     public static void printTitle() {
         System.out.println(
                 "______ ___________ _____   _____ _____ _____ ________  ___  ___ _____ _____ _____ \n" +

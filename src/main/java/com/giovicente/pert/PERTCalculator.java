@@ -10,6 +10,10 @@ import java.util.List;
 
 public class PERTCalculator {
 
+    private PERTCalculator() {
+        throw new IllegalStateException("This class can't be instantiated");
+    }
+
     public static BigDecimal calculateDuration(BigDecimal optimistic, BigDecimal nominal, BigDecimal pessimistic) {
         BigDecimal weightedEstimate = new BigDecimal("0");
 

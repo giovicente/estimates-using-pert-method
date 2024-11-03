@@ -11,6 +11,10 @@ import static com.giovicente.pert.PERTEstimateRetriever.*;
 
 public class PERTMenu {
 
+    private PERTMenu() {
+        throw new IllegalStateException("This class can't be instantiated");
+    }
+
     public static void runPERT() {
         Printer.printAsterisks();
         Printer.printTitle();
