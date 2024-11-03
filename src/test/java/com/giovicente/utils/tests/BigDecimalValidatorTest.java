@@ -1,6 +1,5 @@
 package com.giovicente.utils.tests;
 
-import com.giovicente.utils.BigDecimalSquareRoot;
 import com.giovicente.utils.BigDecimalValidator;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
