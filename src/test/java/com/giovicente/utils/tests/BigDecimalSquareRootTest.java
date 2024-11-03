@@ -4,6 +4,8 @@ import com.giovicente.utils.BigDecimalSquareRoot;
 import com.giovicente.utils.BigDecimalValidator;
 import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
@@ -16,23 +18,13 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class BigDecimalSquareRootTest {
 
-    @Test
-    void shouldCalculateSquareRootOfPerfectSquare() {
-        BigDecimal input = new BigDecimal("16");
-        MathContext precisionContext = new MathContext(2);
-        BigDecimal expected = new BigDecimal("4.0");
-
-        BigDecimal actual = BigDecimalSquareRoot.sqrt(input, precisionContext);
-
-        assertEquals(expected, actual);
-    }
-
-    @Test
-    void shouldCalculateSquareRootOfNonPerfectSquare() {
-        BigDecimal input = new BigDecimal("2");
-        MathContext precisionContext = new MathContext(10);
-        BigDecimal expected = new BigDecimal("1.414213563").setScale(9, RoundingMode.HALF_UP);
-
+    @ParameterizedTest
+    @CsvSource({
+            "16, 2, 4.0",
+            "2, 10, 1.414213563"
+    })
+    void shouldCalculateSquareRootCorrectly(BigDecimal input, int precision, BigDecimal expected) {
+        MathContext precisionContext = new MathContext(precision);
         BigDecimal actual = BigDecimalSquareRoot.sqrt(input, precisionContext);
 
         assertEquals(expected, actual);

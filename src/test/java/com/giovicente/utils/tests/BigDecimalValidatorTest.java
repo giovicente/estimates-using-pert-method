@@ -16,14 +16,16 @@ class BigDecimalValidatorTest {
     @Test
     void shouldThrowNumberFormatExceptionToInvalidBigDecimal() {
         Assertions.assertThrows(NumberFormatException.class, () -> {
-            BigDecimalValidator.isPositiveNumeric(new BigDecimal("e"));
+            new BigDecimal("e");
         });
     }
 
     @Test
     void shouldThrowNumberFormatExceptionToNegativeBigDecimal() {
+        BigDecimal input = new BigDecimal("-1");
+
         Assertions.assertThrows(NumberFormatException.class, () -> {
-            BigDecimalValidator.isPositiveNumeric(new BigDecimal("-1"));
+            BigDecimalValidator.isPositiveNumeric(input);
         });
     }
 
