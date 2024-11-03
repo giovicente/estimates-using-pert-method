@@ -8,22 +8,26 @@ import java.util.Scanner;
 
 public class PERTEstimateRetriever {
 
+    private PERTEstimateRetriever() {
+        throw new IllegalStateException("This class can't be instantiated");
+    }
+
     @NotNull
-    static BigDecimal getOptimistic(Scanner PERTScanner) {
+    static BigDecimal getOptimistic(Scanner pertScanner) {
         Printer.printInsertOptimisticEstimate();
-        return new BigDecimal(String.valueOf(PERTScanner.nextBigDecimal()));
+        return new BigDecimal(String.valueOf(pertScanner.nextBigDecimal()));
     }
 
     @NotNull
-    static BigDecimal getNominal(Scanner PERTScanner) {
+    static BigDecimal getNominal(Scanner pertScanner) {
         Printer.printInsertNominalEstimate();
-        return new BigDecimal(String.valueOf(PERTScanner.nextBigDecimal()));
+        return new BigDecimal(String.valueOf(pertScanner.nextBigDecimal()));
     }
 
     @NotNull
-    static BigDecimal getPessimistic(Scanner PERTScanner) {
+    static BigDecimal getPessimistic(Scanner pertScanner) {
         Printer.printInsertPessimisticEstimate();
-        return new BigDecimal(String.valueOf(PERTScanner.nextBigDecimal()));
+        return new BigDecimal(String.valueOf(pertScanner.nextBigDecimal()));
     }
 
     @NotNull
