@@ -7,14 +7,15 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.math.RoundingMode;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 class BigDecimalSquareRootTest {
 
@@ -122,5 +123,16 @@ class BigDecimalSquareRootTest {
         BigDecimal actual = BigDecimalSquareRoot.sqrt(input, precisionContext);
 
         assertEquals(expected, actual);
+    }
+
+    @Test
+    void shouldThrowIllegalStateExceptionWhenAttemptingToInstantiate() throws NoSuchMethodException {
+        Constructor<BigDecimalSquareRoot> constructor = BigDecimalSquareRoot.class.getDeclaredConstructor();
+        constructor.setAccessible(true);
+
+        Exception exception = assertThrows(InvocationTargetException.class, constructor::newInstance);
+
+        assertTrue(exception.getCause() instanceof IllegalStateException);
+        assertEquals("This class can't be instantiated", exception.getCause().getMessage());
     }
 }

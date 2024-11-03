@@ -1,13 +1,16 @@
 package com.giovicente.pert.tests;
 
 import com.giovicente.pert.PERTCalculator;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 class PERTCalculatorTest {
 
@@ -42,7 +45,7 @@ class PERTCalculatorTest {
                 String.valueOf(PERTCalculator.calculateDuration(optimistic, nominal, pessimistic))
         );
 
-        Assertions.assertEquals(expectedDuration, actualDuration);
+        assertEquals(expectedDuration, actualDuration);
     }
 
     @Test
@@ -52,7 +55,7 @@ class PERTCalculatorTest {
                 String.valueOf(PERTCalculator.calculateStandardDeviation(pessimistic, optimistic))
         );
 
-        Assertions.assertEquals(expectedStandardDeviation, actualStandardDeviation);
+        assertEquals(expectedStandardDeviation, actualStandardDeviation);
     }
 
     @Test
@@ -62,7 +65,7 @@ class PERTCalculatorTest {
                 String.valueOf(PERTCalculator.calculateProbabilityDistributionDurations(durations))
         );
 
-        Assertions.assertEquals(expectedSumOfDurations, actualSumOfDurations);
+        assertEquals(expectedSumOfDurations, actualSumOfDurations);
     }
 
     @Test
@@ -72,6 +75,17 @@ class PERTCalculatorTest {
                 String.valueOf(PERTCalculator.calculateProbabilityDistributionStandardDeviations(deviations))
         );
 
-        Assertions.assertEquals(expectedSumOfDeviations, actualSumOfDeviations);
+        assertEquals(expectedSumOfDeviations, actualSumOfDeviations);
     }
+
+        @Test
+        void shouldThrowIllegalStateExceptionWhenAttemptingToInstantiate() throws NoSuchMethodException {
+            Constructor<PERTCalculator> constructor = PERTCalculator.class.getDeclaredConstructor();
+            constructor.setAccessible(true);
+
+            Exception exception = assertThrows(InvocationTargetException.class, constructor::newInstance);
+
+            assertTrue(exception.getCause() instanceof IllegalStateException);
+            assertEquals("This class can't be instantiated", exception.getCause().getMessage());
+        }
 }
