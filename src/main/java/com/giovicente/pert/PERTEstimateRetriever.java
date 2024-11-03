@@ -32,19 +32,21 @@ public class PERTEstimateRetriever {
 
     @NotNull
     static BigDecimal getDuration(BigDecimal optimistic, BigDecimal nominal, BigDecimal pessimistic) {
-        BigDecimal duration;
-        Printer.printDuration(duration = new BigDecimal(
-                String.valueOf(PERTCalculator.calculateDuration(optimistic, nominal, pessimistic)))
+        BigDecimal duration = new BigDecimal(
+                String.valueOf(PERTCalculator.calculateDuration(optimistic, nominal, pessimistic))
         );
+
+        Printer.printDuration(duration);
         return duration;
     }
 
     @NotNull
     static BigDecimal getIndividualStandardDeviation(BigDecimal optimistic, BigDecimal pessimistic) {
-        BigDecimal standardDeviation;
-        Printer.printStandardDeviation(standardDeviation = new BigDecimal(
+        BigDecimal standardDeviation =  new BigDecimal(
                 String.valueOf(PERTCalculator.calculateStandardDeviation(pessimistic, optimistic))
-        ));
+        );
+
+        Printer.printStandardDeviation(standardDeviation);
         return standardDeviation;
     }
 
