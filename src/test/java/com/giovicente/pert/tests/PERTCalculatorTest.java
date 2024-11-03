@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
 
-public class PERTCalculatorTest {
+class PERTCalculatorTest {
 
     private static BigDecimal optimistic;
     private static BigDecimal nominal;

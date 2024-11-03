@@ -16,18 +16,21 @@ public class PERTMenu {
         Printer.printTitle();
         Printer.printAsterisks();
 
-        Scanner PERTScanner = new Scanner(System.in);
+        Scanner pertScanner = new Scanner(System.in);
 
         final int INDIVIDUAL_ESTIMATE = 1;
         final int BATCH_ESTIMATE = 2;
 
-        BigDecimal optimistic, nominal, pessimistic, realistic;
+        BigDecimal optimistic;
+        BigDecimal nominal;
+        BigDecimal pessimistic;
+        BigDecimal realistic;
 
         boolean isRunning = false;
 
         do {
             Printer.printOptionMessage();
-            int option = PERTScanner.nextInt();
+            int option = pertScanner.nextInt();
             Printer.printAsterisks();
 
             while (option != INDIVIDUAL_ESTIMATE && option != BATCH_ESTIMATE) {
@@ -35,14 +38,14 @@ public class PERTMenu {
                 Printer.printAsterisks();
 
                 Printer.printOptionMessage();
-                option = PERTScanner.nextInt();
+                option = pertScanner.nextInt();
                 Printer.printAsterisks();
             }
 
             if (option == INDIVIDUAL_ESTIMATE) {
-                optimistic = getOptimistic(PERTScanner);
-                nominal = getNominal(PERTScanner);
-                pessimistic = getPessimistic(PERTScanner);
+                optimistic = getOptimistic(pertScanner);
+                nominal = getNominal(pertScanner);
+                pessimistic = getPessimistic(pertScanner);
 
                 realistic = getIndividualEstimate(optimistic, nominal, pessimistic);
                 Printer.printRealisticEstimate(realistic);
@@ -51,20 +54,20 @@ public class PERTMenu {
                 List<BigDecimal> durations = new ArrayList<>();
                 List<BigDecimal> deviations = new ArrayList<>();
 
-                getBatchEstimate(PERTScanner, durations, deviations);
+                getBatchEstimate(pertScanner, durations, deviations);
                 Printer.printAsterisks();
             }
 
-            char continuity = hasContinuity(PERTScanner);
+            char continuity = hasContinuity(pertScanner);
             isRunning = (continuity == 'Y');
         } while (isRunning);
 
-        PERTScanner.close();
+        pertScanner.close();
     }
 
-    private static char hasContinuity(Scanner PERTScanner) {
+    private static char hasContinuity(Scanner pertScanner) {
         Printer.printContinuityMessage();
-        char continuity = Character.toUpperCase(PERTScanner.next().charAt(0));
+        char continuity = Character.toUpperCase(pertScanner.next().charAt(0));
         Printer.printAsterisks();
 
         while (continuity != 'Y' && continuity != 'N') {
@@ -72,23 +75,23 @@ public class PERTMenu {
             Printer.printAsterisks();
 
             Printer.printContinuityMessage();
-            continuity = Character.toUpperCase(PERTScanner.next().charAt(0));
+            continuity = Character.toUpperCase(pertScanner.next().charAt(0));
             Printer.printAsterisks();
         }
 
         return continuity;
     }
 
-    private static void getBatchEstimate(Scanner PERTScanner, List<BigDecimal> durations, List<BigDecimal> deviations) {
+    private static void getBatchEstimate(Scanner pertscanner, List<BigDecimal> durations, List<BigDecimal> deviations) {
         BigDecimal optimistic;
         BigDecimal pessimistic;
         boolean hasMoreEstimates;
         BigDecimal nominal;
 
         do {
-            optimistic = getOptimistic(PERTScanner);
-            nominal = getNominal(PERTScanner);
-            pessimistic = getPessimistic(PERTScanner);
+            optimistic = getOptimistic(pertscanner);
+            nominal = getNominal(pertscanner);
+            pessimistic = getPessimistic(pertscanner);
             Printer.printAsterisks();
 
             BigDecimal duration = getDuration(optimistic, nominal, pessimistic);
@@ -97,7 +100,7 @@ public class PERTMenu {
             deviations.add(getIndividualStandardDeviation(optimistic, pessimistic));
             Printer.printAsterisks();
 
-            char continuity = hasContinuity(PERTScanner);
+            char continuity = hasContinuity(pertscanner);
             hasMoreEstimates = (continuity == 'Y');
         } while (hasMoreEstimates);
 
