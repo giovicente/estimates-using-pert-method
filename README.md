@@ -15,4 +15,26 @@ I came across this technique through the book *The Clean Coder* by Robert C. Mar
 - Java 11
 - JUnit 5
 - Maven
-- I also used the SonarLint plugin in the IntelliJ IDE for local code validations.
+- I also used the SonarQube plugin in the IntelliJ IDE for local code validations.
+
+## Important Note on Using SonarQube
+
+One of the main goals of this project is to improve my skills in clean code and architecture while also developing in the most professional way possible (within the reasonable constraints of a project that is orders of magnitude less complex than a real-world industry-level project). A strategic decision to align with this goal was to use SonarQube as a code linter. I made an effort to address all its findings as rigorously as possible. However, I opted to bypass the `java:S106` rule (regarding not using `System.out.print*` instructions but `Logger` instead), since, by design, this program runs in a command-line environment, making the use of such instructions necessary.
+
+## On the Use of BigDecimal
+
+Due to its extensive use in banking systems and its precision in rounding operations, one of the goals of this project was also an "excuse" to deepen my understanding of `BigDecimal`. However, this choice made the program inefficient in terms of memory consumption (as it allocates significant space to instantiate a `BigDecimal`, which, in practice, only holds a single decimal place after the integer).
+
+That said, this choice wasn’t entirely negative when it came to programming logic and calculation challenges. At one point, I needed to compute the square root of a value, and since `BigDecimal` doesn’t provide this functionality natively, I ended up implementing square root calculation manually using the Raphson-Newton method. This turned out to be a fun challenge.
+
+The goal of this program is to be cloned and executed locally in a command-line environment, so scalability is not a concern here. However, I am considering creating a specific branch to handle estimates as doubles, allowing the algorithms to be more space-efficient.
+
+## Features
+
+The program will calculate an estimated time in days based on two scenarios: individual estimation and batch estimation.
+
+The individual estimation will calculate the expected duration based on three values: an optimistic estimate, a nominal estimate (most likely to be accurate), and a pessimistic estimate.
+
+The batch estimation will consider the same variables but assumes that the professional is working on multiple projects. It will then return the time required to complete all of these projects.
+
+**Important note:** For decimal values, always use a comma as the decimal separator.
