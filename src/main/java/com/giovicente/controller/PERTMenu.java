@@ -74,7 +74,7 @@ public class PERTMenu {
         pertScanner.close();
     }
 
-    private static char hasContinuity(Scanner pertScanner) {
+    public static char hasContinuity(Scanner pertScanner) {
         Printer printer = new PrinterImpl();
 
         printer.printContinuityMessage();
@@ -93,7 +93,7 @@ public class PERTMenu {
         return continuity;
     }
 
-    private static void getBatchEstimate(Scanner pertscanner, List<BigDecimal> durations, List<BigDecimal> deviations) {
+    public static void getBatchEstimate(Scanner pertscanner, List<BigDecimal> durations, List<BigDecimal> deviations) {
         BigDecimal optimistic;
         BigDecimal pessimistic;
         boolean hasMoreEstimates;
