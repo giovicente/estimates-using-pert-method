@@ -1,15 +1,13 @@
 package com.giovicente.utils;
 
+import com.giovicente.processor.BigDecimalSquareRoot;
+
 import java.math.BigDecimal;
 import java.math.MathContext;
 
-public class BigDecimalSquareRoot {
+public class BigDecimalSquareRootImpl implements BigDecimalSquareRoot {
 
-    private BigDecimalSquareRoot() {
-        throw new IllegalStateException("This class can't be instantiated");
-    }
-
-    public static BigDecimal sqrt(BigDecimal value, MathContext precisionContext) {
+    public BigDecimal sqrt(BigDecimal value, MathContext precisionContext) {
         if (value.compareTo(BigDecimal.ZERO) < 0) {
             throw new ArithmeticException("Negative value: " + value);
         }

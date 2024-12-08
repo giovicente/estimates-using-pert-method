@@ -1,13 +1,15 @@
-package com.giovicente.pert;
+package com.giovicente.controller;
 
-import com.giovicente.utils.Printer;
+import com.giovicente.processor.PERTCalculator;
+import com.giovicente.processor.Printer;
+import com.giovicente.utils.PrinterImpl;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import static com.giovicente.pert.PERTEstimateRetriever.*;
+import static com.giovicente.adapter.PERTEstimateRetriever.*;
 
 public class PERTMenu {
 
@@ -16,9 +18,12 @@ public class PERTMenu {
     }
 
     public static void runPERT() {
-        Printer.printAsterisks();
-        Printer.printTitle();
-        Printer.printAsterisks();
+
+        Printer printer = new PrinterImpl();
+
+        printer.printAsterisks();
+        printer.printTitle();
+        printer.printAsterisks();
 
         Scanner pertScanner = new Scanner(System.in);
 
@@ -33,17 +38,17 @@ public class PERTMenu {
         boolean isRunning = false;
 
         do {
-            Printer.printOptionMessage();
+            printer.printOptionMessage();
             int option = pertScanner.nextInt();
-            Printer.printAsterisks();
+            printer.printAsterisks();
 
             while (option != INDIVIDUAL_ESTIMATE && option != BATCH_ESTIMATE) {
-                Printer.printInvalidOptionMessage();
-                Printer.printAsterisks();
+                printer.printInvalidOptionMessage();
+                printer.printAsterisks();
 
-                Printer.printOptionMessage();
+                printer.printOptionMessage();
                 option = pertScanner.nextInt();
-                Printer.printAsterisks();
+                printer.printAsterisks();
             }
 
             if (option == INDIVIDUAL_ESTIMATE) {
@@ -52,14 +57,14 @@ public class PERTMenu {
                 pessimistic = getPessimistic(pertScanner);
 
                 realistic = getIndividualEstimate(optimistic, nominal, pessimistic);
-                Printer.printRealisticEstimate(realistic);
-                Printer.printAsterisks();
+                printer.printRealisticEstimate(realistic);
+                printer.printAsterisks();
             } else {
                 List<BigDecimal> durations = new ArrayList<>();
                 List<BigDecimal> deviations = new ArrayList<>();
 
                 getBatchEstimate(pertScanner, durations, deviations);
-                Printer.printAsterisks();
+                printer.printAsterisks();
             }
 
             char continuity = hasContinuity(pertScanner);
@@ -70,17 +75,19 @@ public class PERTMenu {
     }
 
     private static char hasContinuity(Scanner pertScanner) {
-        Printer.printContinuityMessage();
+        Printer printer = new PrinterImpl();
+
+        printer.printContinuityMessage();
         char continuity = Character.toUpperCase(pertScanner.next().charAt(0));
-        Printer.printAsterisks();
+        printer.printAsterisks();
 
         while (continuity != 'Y' && continuity != 'N') {
-            Printer.printInvalidContinuityMessage();
-            Printer.printAsterisks();
+            printer.printInvalidContinuityMessage();
+            printer.printAsterisks();
 
-            Printer.printContinuityMessage();
+            printer.printContinuityMessage();
             continuity = Character.toUpperCase(pertScanner.next().charAt(0));
-            Printer.printAsterisks();
+            printer.printAsterisks();
         }
 
         return continuity;
@@ -92,17 +99,19 @@ public class PERTMenu {
         boolean hasMoreEstimates;
         BigDecimal nominal;
 
+        Printer printer = new PrinterImpl();
+
         do {
             optimistic = getOptimistic(pertscanner);
             nominal = getNominal(pertscanner);
             pessimistic = getPessimistic(pertscanner);
-            Printer.printAsterisks();
+            printer.printAsterisks();
 
             BigDecimal duration = getDuration(optimistic, nominal, pessimistic);
 
             durations.add(duration);
             deviations.add(getIndividualStandardDeviation(optimistic, pessimistic));
-            Printer.printAsterisks();
+            printer.printAsterisks();
 
             char continuity = hasContinuity(pertscanner);
             hasMoreEstimates = (continuity == 'Y');
@@ -116,14 +125,14 @@ public class PERTMenu {
                 String.valueOf(PERTCalculator.calculateProbabilityDistributionStandardDeviations(deviations))
         );
 
-        Printer.printTaskSequenceDuration(weightedDuration);
-        Printer.printTaskSequenceStandardDeviation(weightedDeviation);
+        printer.printTaskSequenceDuration(weightedDuration);
+        printer.printTaskSequenceStandardDeviation(weightedDeviation);
 
-        Printer.printFinalBatchEstimate(
+        printer.printFinalBatchEstimate(
                 new BigDecimal(String.valueOf(weightedDuration.add(weightedDeviation)))
         );
 
-        Printer.printFinalBatchEstimateWorstCase(
+        printer.printFinalBatchEstimateWorstCase(
                 new BigDecimal(
                         String.valueOf(weightedDuration.add(weightedDeviation.multiply(new BigDecimal("2"))))
                 )

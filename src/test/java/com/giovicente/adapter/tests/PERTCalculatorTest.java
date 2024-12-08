@@ -1,6 +1,6 @@
-package com.giovicente.pert.tests;
+package com.giovicente.adapter.tests;
 
-import com.giovicente.pert.PERTCalculator;
+import com.giovicente.processor.PERTCalculator;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
