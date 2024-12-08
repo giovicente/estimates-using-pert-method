@@ -1,14 +1,15 @@
 package com.giovicente.utils.tests;
 
-import com.giovicente.utils.BigDecimalSquareRoot;
-import com.giovicente.utils.BigDecimalValidator;
+import com.giovicente.utils.BigDecimalSquareRootImpl;
+import com.giovicente.utils.BigDecimalValidatorImpl;
 import org.jetbrains.annotations.NotNull;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
+import com.giovicente.processor.BigDecimalSquareRoot;
+import com.giovicente.processor.BigDecimalValidator;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.math.RoundingMode;
@@ -19,6 +20,14 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class BigDecimalSquareRootTest {
 
+    private static BigDecimalSquareRoot squareRoot;
+    private static BigDecimalValidator validator;
+
+    @BeforeAll
+    static void setUp() {
+        squareRoot = new BigDecimalSquareRootImpl();
+    }
+
     @ParameterizedTest
     @CsvSource({
             "16, 2, 4.0",
@@ -26,7 +35,7 @@ class BigDecimalSquareRootTest {
     })
     void shouldCalculateSquareRootCorrectly(BigDecimal input, int precision, BigDecimal expected) {
         MathContext precisionContext = new MathContext(precision);
-        BigDecimal actual = BigDecimalSquareRoot.sqrt(input, precisionContext);
+        BigDecimal actual = squareRoot.sqrt(input, precisionContext);
 
         assertEquals(expected, actual);
     }
@@ -39,7 +48,7 @@ class BigDecimalSquareRootTest {
         BigDecimal expected = new BigDecimal("3.1").setScale(1, RoundingMode.HALF_UP);
 
         BigDecimal actual = new BigDecimal(
-                String.valueOf(BigDecimalSquareRoot.sqrt(input, precisionContext))
+                String.valueOf(squareRoot.sqrt(input, precisionContext))
         ).setScale(1, RoundingMode.HALF_UP);
 
         assertEquals(expected, actual);
@@ -47,6 +56,8 @@ class BigDecimalSquareRootTest {
 
     @NotNull
     private static BigDecimal setUpSpecialConditionToCalculateSquareRootOfNonPerfectDecimalNumberSquare() {
+        validator = new BigDecimalValidatorImpl();
+
         BigDecimal deviationProjectOne = new BigDecimal("1.8");
         BigDecimal deviationProjectTwo = new BigDecimal("2.2");
         BigDecimal deviationProjectThree = new BigDecimal("1.3");
@@ -56,7 +67,7 @@ class BigDecimalSquareRootTest {
         BigDecimal input = BigDecimal.ZERO.setScale(2, RoundingMode.HALF_UP);
 
         return deviations.stream()
-                .filter(BigDecimalValidator::isPositiveNumeric)
+                .filter(validator::isPositiveNumeric)
                 .map(deviation -> deviation.multiply(deviation))
                 .reduce(input, BigDecimal::add);
     }
@@ -66,7 +77,7 @@ class BigDecimalSquareRootTest {
         BigDecimal input = BigDecimal.ZERO;
         MathContext precisionContext = new MathContext(10);
 
-        BigDecimal actual = BigDecimalSquareRoot.sqrt(input, precisionContext);
+        BigDecimal actual = squareRoot.sqrt(input, precisionContext);
 
         assertEquals(input, actual);
     }
@@ -76,7 +87,7 @@ class BigDecimalSquareRootTest {
         BigDecimal input = BigDecimal.ONE;
         MathContext precisionContext = new MathContext(10);
 
-        BigDecimal actual = BigDecimalSquareRoot.sqrt(input, precisionContext);
+        BigDecimal actual = squareRoot.sqrt(input, precisionContext);
 
         assertEquals(input, actual);
     }
@@ -87,7 +98,7 @@ class BigDecimalSquareRootTest {
         MathContext precisionContext = new MathContext(10);
 
         assertThrows(ArithmeticException.class, () -> {
-            BigDecimalSquareRoot.sqrt(input, precisionContext);
+            squareRoot.sqrt(input, precisionContext);
         });
     }
 
@@ -98,7 +109,7 @@ class BigDecimalSquareRootTest {
         MathContext precisionContext = new MathContext(5);
         BigDecimal expected = new BigDecimal("3.1623").setScale(4, RoundingMode.HALF_UP);
 
-        BigDecimal actual = BigDecimalSquareRoot.sqrt(input, precisionContext);
+        BigDecimal actual = squareRoot.sqrt(input, precisionContext);
 
         assertEquals(expected, actual);
     }
@@ -109,7 +120,7 @@ class BigDecimalSquareRootTest {
         MathContext precisionContext = new MathContext(7);
         BigDecimal expected = new BigDecimal("1000000");
 
-        BigDecimal actual = BigDecimalSquareRoot.sqrt(input, precisionContext);
+        BigDecimal actual = squareRoot.sqrt(input, precisionContext);
 
         assertEquals(expected, actual);
     }
@@ -120,19 +131,8 @@ class BigDecimalSquareRootTest {
         MathContext precisionContext = new MathContext(1);
         BigDecimal expected = new BigDecimal("0.02");
 
-        BigDecimal actual = BigDecimalSquareRoot.sqrt(input, precisionContext);
+        BigDecimal actual = squareRoot.sqrt(input, precisionContext);
 
         assertEquals(expected, actual);
-    }
-
-    @Test
-    void shouldThrowIllegalStateExceptionWhenAttemptingToInstantiate() throws NoSuchMethodException {
-        Constructor<BigDecimalSquareRoot> constructor = BigDecimalSquareRoot.class.getDeclaredConstructor();
-        constructor.setAccessible(true);
-
-        Exception exception = assertThrows(InvocationTargetException.class, constructor::newInstance);
-
-        assertTrue(exception.getCause() instanceof IllegalStateException);
-        assertEquals("This class can't be instantiated", exception.getCause().getMessage());
     }
 }
