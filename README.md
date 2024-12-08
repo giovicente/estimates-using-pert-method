@@ -12,7 +12,7 @@ I came across this technique through the book *The Clean Coder* by Robert C. Mar
 
 ## Technologies used
 
-- Java 11
+- Java 17
 - JUnit 5
 - Maven
 - I also used the SonarQube plugin in the IntelliJ IDE for local code validations.
