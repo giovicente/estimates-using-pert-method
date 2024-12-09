@@ -14,8 +14,9 @@ I came across this technique through the book *The Clean Coder* by Robert C. Mar
 
 - Java 17
 - JUnit 5
+- Mockito
 - Maven
-- I also used the SonarQube plugin in the IntelliJ IDE for local code validations.
+- I also used the SonarQube plugin in the IntelliJ IDE for local code validations and JaCoCo for tests coverage.
 
 ## Important Note on Using SonarQube
 
