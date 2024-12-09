@@ -1,7 +1,6 @@
 package com.giovicente.controller.tests;
 
 import com.giovicente.controller.PERTMenu;
-import com.giovicente.utils.PrinterImpl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -22,9 +21,6 @@ class PERTMenuTest {
 
     @Mock
     private Scanner mockScanner;
-
-    @Mock
-    private PrinterImpl printer;
 
     @Test
     void shouldThrowIllegalStateExceptionWhenAttemptingToInstantiate() throws NoSuchMethodException {
