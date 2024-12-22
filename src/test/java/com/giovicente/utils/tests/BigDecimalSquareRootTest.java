@@ -1,5 +1,7 @@
 package com.giovicente.utils.tests;
 
+import com.giovicente.processor.BigDecimalSquareRoot;
+import com.giovicente.processor.BigDecimalValidator;
 import com.giovicente.utils.BigDecimalSquareRootImpl;
 import com.giovicente.utils.BigDecimalValidatorImpl;
 import org.jetbrains.annotations.NotNull;
@@ -7,8 +9,6 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
-import com.giovicente.processor.BigDecimalSquareRoot;
-import com.giovicente.processor.BigDecimalValidator;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
@@ -16,12 +16,12 @@ import java.math.RoundingMode;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class BigDecimalSquareRootTest {
 
     private static BigDecimalSquareRoot squareRoot;
-    private static BigDecimalValidator validator;
 
     @BeforeAll
     static void setUp() {
@@ -56,7 +56,7 @@ class BigDecimalSquareRootTest {
 
     @NotNull
     private static BigDecimal setUpSpecialConditionToCalculateSquareRootOfNonPerfectDecimalNumberSquare() {
-        validator = new BigDecimalValidatorImpl();
+        BigDecimalValidator validator = new BigDecimalValidatorImpl();
 
         BigDecimal deviationProjectOne = new BigDecimal("1.8");
         BigDecimal deviationProjectTwo = new BigDecimal("2.2");
