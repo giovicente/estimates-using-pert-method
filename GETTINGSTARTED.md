@@ -1,6 +1,6 @@
 # How to Run This Program with Command Line
 
-1 - Ensure that Maven is correctly installed by running the command mvn -v. It should return a message similar to the one below:
+1 - Ensure that Maven is correctly installed by running the command `mvn -v`. It should return a message similar to the one below:
 ```
 Apache Maven 3.9.9 (8e8579a9e76f7d015ee5ec7bfcdc97d260186937)
 Maven home: C:\Program Files\Apache\Maven\apache-maven-3.9.9
