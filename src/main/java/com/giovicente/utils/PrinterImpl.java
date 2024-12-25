@@ -86,4 +86,9 @@ public class PrinterImpl implements Printer {
 
         jumpLine();
     }
+
+    @Override
+    public void printInvalidInputValue() {
+        System.out.println("Invalid Input! The value must be a positive numeric with a dot as the decimal separator.");
+    }
 }

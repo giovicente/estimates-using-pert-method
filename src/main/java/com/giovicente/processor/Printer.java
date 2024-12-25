@@ -20,4 +20,5 @@ public interface Printer {
     void printFinalBatchEstimateWorstCase(BigDecimal weightedEstimate);
     void jumpLine();
     void printAsterisks();
+    void printInvalidInputValue();
 }

@@ -32,7 +32,7 @@ The batch estimation will consider the same variables but assumes that the profe
 
 The final estimate is determined by the sum of the calculated durations and their standard deviation or, in the worst-case scenario, twice the standard deviation.
 
-**Important note:** For decimal values, always use a comma as the decimal separator.
+**Important note:** For decimal values, always use a dot as the decimal separator.
 
 ## Important Note on Using SonarQube
 
