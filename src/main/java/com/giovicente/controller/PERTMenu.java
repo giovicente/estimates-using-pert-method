@@ -13,12 +13,9 @@ import static com.giovicente.adapter.PERTEstimateRetriever.*;
 
 public class PERTMenu {
 
-    private PERTMenu() {
-        throw new IllegalStateException("This class can't be instantiated");
-    }
+    private PERTMenu() { throw new IllegalStateException("This class can't be instantiated"); }
 
     public static void runPERT() {
-
         Printer printer = new PrinterImpl();
 
         printer.printAsterisks();
