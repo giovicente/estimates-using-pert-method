@@ -9,8 +9,13 @@ Default locale: pt_BR, platform encoding: Cp1252
 OS name: "windows 11", version: "10.0", arch: "amd64", family: "windows"
 ```
 2 - If the command doesn’t work, check if Maven is properly installed and configured in the system `PATH`: https://maven.apache.org/install.html.
+
 3 - Navigate to the root directory of your project, where the `pom.xml` file is located.
+
 4 - Run the command `mvn clean install`. The `clean` step removes previously generated files, ensuring the build starts from scratch, while the `install` step compiles the code, runs tests, and places the generated artifact in the local repository.
+
 5 - Navigate to the directory where your `.jar` file was generated.
+
 6 - Execute the command `java -jar estimates-using-pert-method.jar`.
+
 7 - The program should run correctly if these steps are followed.
