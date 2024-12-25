@@ -31,7 +31,9 @@ class BigDecimalSquareRootTest {
     @ParameterizedTest
     @CsvSource({
             "16, 2, 4.0",
-            "2, 10, 1.414213563"
+            "2, 10, 1.414213563",
+            "0.0002, 1, 0.02",
+            "1000000000000, 7, 1000000"
     })
     void shouldCalculateSquareRootCorrectly(BigDecimal input, int precision, BigDecimal expected) {
         MathContext precisionContext = new MathContext(precision);
@@ -108,28 +110,6 @@ class BigDecimalSquareRootTest {
         BigDecimal input = new BigDecimal("10");
         MathContext precisionContext = new MathContext(5);
         BigDecimal expected = new BigDecimal("3.1623").setScale(4, RoundingMode.HALF_UP);
-
-        BigDecimal actual = squareRoot.sqrt(input, precisionContext);
-
-        assertEquals(expected, actual);
-    }
-
-    @Test
-    void shouldCalculateSquareRootOfLargeNumber() {
-        BigDecimal input = new BigDecimal("1000000000000");
-        MathContext precisionContext = new MathContext(7);
-        BigDecimal expected = new BigDecimal("1000000");
-
-        BigDecimal actual = squareRoot.sqrt(input, precisionContext);
-
-        assertEquals(expected, actual);
-    }
-
-    @Test
-    void shouldCalculateSquareRootOfSmallNumber() {
-        BigDecimal input = new BigDecimal("0.0002");
-        MathContext precisionContext = new MathContext(1);
-        BigDecimal expected = new BigDecimal("0.02");
 
         BigDecimal actual = squareRoot.sqrt(input, precisionContext);
 
