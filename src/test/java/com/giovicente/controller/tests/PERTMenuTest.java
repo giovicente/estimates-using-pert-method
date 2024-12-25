@@ -135,7 +135,49 @@ class PERTMenuTest {
     }
 
     @Test
-    void shouldReturnCorrectFinalEstimations() {
+    void shouldReturnCorrectFinalEstimatesForTwoIndividualRequests() {
+        /*
+         * Simulated inputs for runPERT() method:
+         * . 1 is a valid option for selecting an individual estimate
+         * . 1 is the first individual optimistic estimate
+         * . 3 is the first individual nominal estimate
+         * . 5 is the first individual pessimistic estimate
+         * . Y indicates that the user wants to add a new estimate to the list
+         * . 1 is a valid option for selecting an individual estimate
+         * . 2 is the second individual optimistic estimate
+         * . 5 is the second individual nominal estimate
+         * . 8 is the second individual pessimistic estimate
+         * . N indicates that the user does not want to make a new estimate
+         * */
+        simulatedInputs = "1\n1\n3\n5\nY\n1\n2\n5\n8\nN";
+        InputStream inputStream = new ByteArrayInputStream(simulatedInputs.getBytes());
+
+        System.setIn(inputStream);
+
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        PrintStream actualOutput = System.out;
+        System.setOut(new PrintStream(outputStream));
+
+        try {
+            PERTMenu.runPERT();
+        } finally {
+            System.setOut(actualOutput);
+            System.setIn(System.in);
+        }
+
+        String capturedOutput = outputStream.toString();
+
+        assertTrue(capturedOutput.contains("Duration = 3.0"));
+        assertTrue(capturedOutput.contains("Standard Deviation = 0.7"));
+        assertTrue(capturedOutput.contains("Estimate = 3.7"));
+
+        assertTrue(capturedOutput.contains("Duration = 5.0"));
+        assertTrue(capturedOutput.contains("Standard Deviation = 1.0"));
+        assertTrue(capturedOutput.contains("Estimate = 6.0"));
+    }
+
+    @Test
+    void shouldReturnCorrectFinalEstimates() {
         /*
          * Simulated inputs for runPERT() method:
          * . 2 is a valid option for selecting a batch estimate
@@ -167,5 +209,44 @@ class PERTMenuTest {
         assertTrue(capturedOutput.contains("Task Sequence Standard Deviation: 0.7"));
         assertTrue(capturedOutput.contains("Final Estimate: 3.7"));
         assertTrue(capturedOutput.contains("Final Estimate (Worst Case Scenario): 4.4"));
+    }
+
+    @Test
+    void shouldReturnCorrectFinalEstimatesForAListOfProjects() {
+        /*
+         * Simulated inputs for runPERT() method:
+         * . 2 is a valid option for selecting a batch estimate
+         * . 1 is the optimistic estimate for the first project
+         * . 3 is the nominal estimate for the first project
+         * . 5 is the pessimistic estimate for the first project
+         * . Y indicates that the user wants to add a new estimate to the list
+         * . 4 is the optimistic estimate for the second project
+         * . 8 is the nominal estimate for the second project
+         * . 11 is the pessimistic estimate for the second project
+         * . First N indicates that the user does not want to add a new estimate to the list
+         * . Second N indicates that the user does not want to make a new estimate
+         * */
+        simulatedInputs = "2\n1\n3\n5\nY\n4\n8\n11\nN\nN";
+        InputStream inputStream = new ByteArrayInputStream(simulatedInputs.getBytes());
+
+        System.setIn(inputStream);
+
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        PrintStream actualOutput = System.out;
+        System.setOut(new PrintStream(outputStream));
+
+        try {
+            PERTMenu.runPERT();
+        } finally {
+            System.setOut(actualOutput);
+            System.setIn(System.in);
+        }
+
+        String capturedOutput = outputStream.toString();
+
+        assertTrue(capturedOutput.contains("Task Sequence Duration: 10.8"));
+        assertTrue(capturedOutput.contains("Task Sequence Standard Deviation: 1.4"));
+        assertTrue(capturedOutput.contains("Final Estimate: 12.2"));
+        assertTrue(capturedOutput.contains("Final Estimate (Worst Case Scenario): 13.6"));
     }
 }
