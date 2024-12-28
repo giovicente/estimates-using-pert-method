@@ -58,19 +58,19 @@ public class PrinterImpl implements Printer {
     }
 
     public void printTaskSequenceDuration(BigDecimal weightedDuration) {
-        System.out.println("Task Sequence Duration: " + weightedDuration);
+        System.out.println("Task Sequence Duration = " + weightedDuration);
     }
 
     public void printTaskSequenceStandardDeviation(BigDecimal weightedStandardDeviation) {
-        System.out.println("Task Sequence Standard Deviation: " + weightedStandardDeviation);
+        System.out.println("Task Sequence Standard Deviation = " + weightedStandardDeviation);
     }
 
     public void printFinalBatchEstimate(BigDecimal weightedEstimate) {
-        System.out.println("Final Estimate: " + weightedEstimate);
+        System.out.println("Final Estimate = " + weightedEstimate);
     }
 
     public void printFinalBatchEstimateWorstCase(BigDecimal weightedEstimate) {
-        System.out.println("Final Estimate (Worst Case Scenario): " + weightedEstimate);
+        System.out.println("Final Estimate (Worst Case Scenario) = " + weightedEstimate);
     }
 
     public void jumpLine() {

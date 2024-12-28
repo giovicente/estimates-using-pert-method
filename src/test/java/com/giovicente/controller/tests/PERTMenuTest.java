@@ -205,10 +205,10 @@ class PERTMenuTest {
 
         String capturedOutput = outputStream.toString();
 
-        assertTrue(capturedOutput.contains("Task Sequence Duration: 3.0"));
-        assertTrue(capturedOutput.contains("Task Sequence Standard Deviation: 0.7"));
-        assertTrue(capturedOutput.contains("Final Estimate: 3.7"));
-        assertTrue(capturedOutput.contains("Final Estimate (Worst Case Scenario): 4.4"));
+        assertTrue(capturedOutput.contains("Task Sequence Duration = 3.0"));
+        assertTrue(capturedOutput.contains("Task Sequence Standard Deviation = 0.7"));
+        assertTrue(capturedOutput.contains("Final Estimate = 3.7"));
+        assertTrue(capturedOutput.contains("Final Estimate (Worst Case Scenario) = 4.4"));
     }
 
     @Test
@@ -244,9 +244,9 @@ class PERTMenuTest {
 
         String capturedOutput = outputStream.toString();
 
-        assertTrue(capturedOutput.contains("Task Sequence Duration: 10.8"));
-        assertTrue(capturedOutput.contains("Task Sequence Standard Deviation: 1.4"));
-        assertTrue(capturedOutput.contains("Final Estimate: 12.2"));
-        assertTrue(capturedOutput.contains("Final Estimate (Worst Case Scenario): 13.6"));
+        assertTrue(capturedOutput.contains("Task Sequence Duration = 10.8"));
+        assertTrue(capturedOutput.contains("Task Sequence Standard Deviation = 1.4"));
+        assertTrue(capturedOutput.contains("Final Estimate = 12.2"));
+        assertTrue(capturedOutput.contains("Final Estimate (Worst Case Scenario) = 13.6"));
     }
 }
