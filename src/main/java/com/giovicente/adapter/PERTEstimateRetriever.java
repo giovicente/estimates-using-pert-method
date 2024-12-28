@@ -30,7 +30,10 @@ public class PERTEstimateRetriever {
                 optimistic = new BigDecimal(String.valueOf(pertScanner.nextBigDecimal()));
                 validInput = true;
             } catch (InputMismatchException e) {
+                printer.printAsterisks();
                 printer.printInvalidInputValue();
+                printer.printAsterisks();
+
                 pertScanner.nextLine();
             }
         }
@@ -51,7 +54,10 @@ public class PERTEstimateRetriever {
                 nominal = new BigDecimal(String.valueOf(pertScanner.nextBigDecimal()));
                 validInput = true;
             } catch (InputMismatchException e) {
+                printer.printAsterisks();
                 printer.printInvalidInputValue();
+                printer.printAsterisks();
+
                 pertScanner.nextLine();
             }
         }
@@ -72,7 +78,10 @@ public class PERTEstimateRetriever {
                 pessimistic = new BigDecimal(String.valueOf(pertScanner.nextBigDecimal()));
                 validInput = true;
             } catch (InputMismatchException e) {
+                printer.printAsterisks();
                 printer.printInvalidInputValue();
+                printer.printAsterisks();
+
                 pertScanner.nextLine();
             }
         }

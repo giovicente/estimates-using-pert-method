@@ -78,7 +78,7 @@ public class PrinterImpl implements Printer {
     }
 
     public void printAsterisks() {
-        final int NUMBER_OF_ASTERISKS = 42;
+        final int NUMBER_OF_ASTERISKS = 50;
 
         for (int i = 0; i < NUMBER_OF_ASTERISKS; i++) {
             System.out.print("*" + " ");
